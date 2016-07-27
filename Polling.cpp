@@ -1,3 +1,10 @@
+/*
+ * Polling.cpp
+ * Member-function definitions for class Polling that uses a two-dimensional array to store ratings.
+ * author: Oyekunle Elijah PlayMice <elijah@playmiceweb.com>
+ * 27/07/16
+ */
+
 #include <iostream>
 #include <iomanip>
 #include "Polling.h"
@@ -5,12 +12,13 @@
 using namespace std;
 
 
-//Constructor
+//constructor initializes array of topics and ratings
 Polling::Polling( const array< string, issues > &issuesArray, array< array< int, ratings >, issues > &ratingsArray )
 		: topics( issuesArray ), responses( ratingsArray ) {
 }
 
 
+//function to get averate rating for each topic
 double Polling::getAverage( const array< int, ratings > &setOfRatings ) const {
 	int total = 0;
 
@@ -21,6 +29,7 @@ double Polling::getAverage( const array< int, ratings > &setOfRatings ) const {
 }
 
 
+//function to get the ratings, individually
 void Polling::enterRating() {
 	cout << "Enter a rating (1 -" << Polling::ratings << ") for the following topics: " << endl;
 
@@ -28,7 +37,7 @@ void Polling::enterRating() {
 		int rating;
 		cout << topics[ issue ] << ": ";
 		cin >> rating;
-		if ( rating >= 1 and rating <= 10 )
+		if ( rating >= 1 and rating <= 10 )		//error checking
 			++responses[ issue ][ rating - 1 ];
 		else {
 			cout << "Invalid input. Enter values between 1 and " << Polling::ratings << " " << endl;
@@ -38,6 +47,7 @@ void Polling::enterRating() {
 }
 
 
+//function to rate different topics
 void Polling::setRatings() {
 	string sentinel = "y";
 
@@ -49,6 +59,7 @@ void Polling::setRatings() {
 }
 
 
+//function to set the topics
 void Polling::setTopics() {
 	int reply;
 	array< string, Polling::issues > defaultTopics = {"Politics", "Hunger", "Security", "Crime", "Philantropy"};
@@ -75,8 +86,9 @@ void Polling::setTopics() {
 }
 
 
+//perform various operations on ratings data
 void Polling::processRatings() {
-	int highestTotal = getHigestPoint();
+	int highestTotal = getHighestPoint();
 	int lowestTotal = getLowestPoint();
 	cout << "\nTopic with Higest Total Ratings: " << topics[ highestTotal ] << " (" <<
 	getTotalPoints( responses[ highestTotal ] ) << ")" << endl;
@@ -85,6 +97,7 @@ void Polling::processRatings() {
 }
 
 
+//display the contents of the responses array
 void Polling::displayRatings() const {
 	cout << "\nThe ratings are: " << endl;
 	cout << setw( 14 );
@@ -99,7 +112,7 @@ void Polling::displayRatings() const {
 			cout << responses[ issue ][ rating ] << " ";
 
 		double average = getAverage( responses[ issue ] );
-		cout << setw( 8 ) << setprecision( 2 ) << fixed << average;
+		cout << setw( 8 ) << setprecision( 2 ) << fixed << average;		//display to 2d.p.
 
 		int total = getTotalPoints( responses[ issue ] );
 		cout << setw( 6 ) << total << endl;
@@ -107,6 +120,7 @@ void Polling::displayRatings() const {
 }
 
 
+//function to get the total rating points of an array
 int Polling::getTotalPoints( const array< int, ratings > &setOfRatings ) const {
 	int total = 0;
 
@@ -117,7 +131,8 @@ int Polling::getTotalPoints( const array< int, ratings > &setOfRatings ) const {
 }
 
 
-int Polling::getHigestPoint() {
+//function to get highest rated topic
+int Polling::getHighestPoint() {
 	int fig = 0;
 
 	for ( int topic = 0; topic < topics.size(); ++topic )
@@ -128,6 +143,7 @@ int Polling::getHigestPoint() {
 }
 
 
+//function to get lowest rated topic
 int Polling::getLowestPoint() {
 	int fig = 0;
 
