@@ -17,7 +17,7 @@ double Polling::getAverage( const array< int, ratings > &setOfRatings ) const {
 }
 
 void Polling::enterRating() {
-	cout << "Enter a rating (1 - 10) for the following issues: " << endl;
+	cout << "Enter a rating (1 -"<< Polling::ratings << ") for the following issues: " << endl;
 	for ( int issue = 0; issue < topics.size(); ++issue ) {
 		int rating;
 		cout << topics[ issue ] << ": ";
@@ -32,6 +32,25 @@ void Polling::setRatings() {
 		enterRating();
 		cout << "Create another entry? (y/n) ";
 		cin >> sentinel;
+	}
+}
+
+void Polling::setTopics() {
+	int reply;
+	array< string, Polling::issues> defaultTopics = {"Politics", "Hunger", "Security", "Crime", "Philantropy"};
+	cout << "Enter 1 or 2\n1] Use Default Topics (";
+	for( string topic : defaultTopics)
+		cout << " " << topic << " ";
+	cout << ")\n2] Create your own Topics\n>> ";
+	cin >> reply;
+	if(reply == 1) {
+		topics = defaultTopics;
+	} else {
+		cout << "Enter your topics: " << endl;
+		for ( int topic = 0; topic < Polling::issues; ++topic ) {
+			cout << ">> ";
+			cin >> topics[ topic ];
+		}
 	}
 }
 
@@ -57,7 +76,7 @@ void Polling::displayRatings() const {
 		}
 
 		double average = getAverage( responses[ issue ] );
-		cout << setw( 10 ) << setprecision( 2 ) << fixed << average << endl;
+		cout << setw( 15 ) << setprecision( 2 ) << fixed << average << endl;
 	}
 }
 

@@ -20,6 +20,8 @@ public:
 
 	void setRatings();
 
+	void setTopics();
+
 	void enterRating();
 
 	int getTotalPoints( const array< int, ratings > &) const;
