@@ -57,9 +57,9 @@ void Polling::setTopics() {
 void Polling::processRatings() {
 	int highestTotal = getHigestPoint();
 	int lowestTotal = getLowestPoint();
-	cout << "\nIssue with Higest Total Points: " << topics[ highestTotal ] << " (" <<
+	cout << "\nTopic with Higest Total Ratings: " << topics[ highestTotal ] << " (" <<
 	getTotalPoints( responses[ highestTotal ] ) << ")" << endl;
-	cout << "Issue with Lowest Total Points: " << topics[ lowestTotal ] << " (" <<
+	cout << "Topic with Lowest Total Ratings: " << topics[ lowestTotal ] << " (" <<
 	getTotalPoints( responses[ lowestTotal ] ) << ")" << endl;
 }
 
@@ -68,7 +68,7 @@ void Polling::displayRatings() const {
 	cout << setw( 14 );
 	for ( size_t i = 1; i <= ratings; ++i )
 		cout << i << " ";
-	cout << "Average Rating" << endl;
+	cout << "Average" << " Total" << endl;
 	for ( size_t issue = 0; issue < responses.size(); ++issue ) {
 		cout << setw( 12 ) << topics[ issue ] << " ";
 		for ( size_t rating = 0; rating < responses[ issue ].size(); ++rating ) {
@@ -76,7 +76,10 @@ void Polling::displayRatings() const {
 		}
 
 		double average = getAverage( responses[ issue ] );
-		cout << setw( 15 ) << setprecision( 2 ) << fixed << average << endl;
+		cout << setw( 8 ) << setprecision( 2 ) << fixed << average;
+
+		int total = getTotalPoints( responses[ issue ] );
+		cout << setw( 6 ) << total << endl;
 	}
 }
 
