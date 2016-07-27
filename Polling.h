@@ -1,4 +1,5 @@
 #include <string>
+
 using namespace std;
 
 class Polling {
@@ -24,9 +25,9 @@ public:
 
 	void enterRating();
 
-	int getTotalPoints( const array< int, ratings > &) const;
+	int getTotalPoints( const array< int, ratings > & ) const;
 
 private:
-	array< string, issues> topics;
+	array< string, issues > topics;
 	array< array< int, ratings >, issues > responses;
 };
