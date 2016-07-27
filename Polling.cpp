@@ -30,8 +30,10 @@ void Polling::enterRating() {
 		cin >> rating;
 		if ( rating >= 1 and rating <= 10 )
 			++responses[ issue ][ rating - 1 ];
-		else
+		else {
 			cout << "Invalid input. Enter values between 1 and " << Polling::ratings << " " << endl;
+			enterRating();
+		}
 	}
 }
 
@@ -66,8 +68,10 @@ void Polling::setTopics() {
 			cout << ">> ";
 			cin >> topics[ topic ];
 		}
-	} else
-		cout << "Invalid Input" << endl;
+	} else {
+		cout << "Invalid Input. Enter 1 or 2." << endl;
+		setTopics();
+	}
 }
 
 
